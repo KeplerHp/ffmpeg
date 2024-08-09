@@ -35,7 +35,9 @@ ffmpeg -f rawvideo -pix_fmt bgra -s 300x168 -i input.bgra -c:v libx264 output.h2
 ffmpeg -i output.h264 -pix_fmt bgra -f rawvideo output.bgra
 ```
 
+
 src文件夹中包含C++代码，调用ffmpeg的库以实现上述命令行相同的功能
+
 版本信息如下：
 ```bash
 $ ffmpeg -version

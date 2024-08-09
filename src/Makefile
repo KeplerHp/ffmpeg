@@ -23,7 +23,7 @@ $(PROGRAM): $(SOURCES)
 # 清理编译生成的文件
 clean:
 	rm -f $(PROGRAM)
-	rm -f ./output/*.jpg ./output/*.bgra
+	rm -f ../output/*.jpg ../output/*.bgra ../output/*.h264
 
 # 声明伪目标
 .PHONY: all clean

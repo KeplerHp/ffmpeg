@@ -13,10 +13,10 @@ extern "C" {
 using namespace std;
 
 int main() {
-    const int width = 300;
-    const int height = 168;
-    const string input_file = "input.bgra";
-    const string output_file = "output_from_code.h264";
+    const string input_file = "../input/input_1080.bgra";
+    const string output_file = "../output/output_1080.h264";
+    const int width = 1920;
+    const int height = 1080;
 
     // 读取BGRA数据
     ifstream input(input_file, ios::binary);
