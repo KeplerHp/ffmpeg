@@ -53,3 +53,4 @@ libswscale      5.  9.100 /  5.  9.100
 libswresample   3.  9.100 /  3.  9.100
 libpostproc    55.  9.100 / 55.  9.100
 ```
+image文件夹中包含使用的图片，分别为1080、720、480、360规格，input文件夹中为对应的图片转换为的bgra格式文件，output文件夹中包含对应bgra压缩成的h264文件。
