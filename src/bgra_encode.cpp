@@ -48,7 +48,8 @@ int main() {
 
     // 设置编码参数
     NOW(CYCLE_START, 2);
-    codec_ctx->bit_rate = 400000;
+    // 初始为400000，效果不太佳
+    codec_ctx->bit_rate = 2000000;
     codec_ctx->width = width;
     codec_ctx->height = height;
     codec_ctx->time_base = {1, 25};
@@ -57,6 +58,10 @@ int main() {
     codec_ctx->pix_fmt = AV_PIX_FMT_YUV420P;
 
     av_opt_set(codec_ctx->priv_data, "preset", "slow", 0);
+    // 这个修改延迟增加很大
+    // av_opt_set(codec_ctx->priv_data, "crf", "0", 0);
+    // av_opt_set(codec_ctx->priv_data, "preset", "veryslow", 0);
+
 
     if (avcodec_open2(codec_ctx, codec, nullptr) < 0) {
         cerr << "Failed to open H.264 encoder" << endl;
