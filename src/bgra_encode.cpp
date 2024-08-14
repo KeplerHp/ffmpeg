@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include "helper.h"
 
 extern "C" {
     #include <libavcodec/avcodec.h>
@@ -27,7 +28,11 @@ int main() {
     vector<uint8_t> bgra((istreambuf_iterator<char>(input)), istreambuf_iterator<char>());
     input.close();
 
+    // 初始化日志开始时间
+    startTime = get_cpu_cycle();
+
     // 创建AVCodecContext对象
+    NOW(CYCLE_START, 1);
     AVCodec *codec = avcodec_find_encoder(AV_CODEC_ID_H264);
     if (!codec) {
         cerr << "Failed to find H.264 encoder" << endl;
@@ -153,6 +158,9 @@ int main() {
     av_freep(&frame->data[0]);
     av_frame_free(&frame);
     avcodec_free_context(&codec_ctx);
+    NOW(CYCLE_END, 1);
 
+    // 保存日志
+    exportLog();
     return 0;
 }

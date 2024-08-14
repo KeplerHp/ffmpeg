@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include "helper.h"
 
 extern "C" {
     #include <libavcodec/avcodec.h>
