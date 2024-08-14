@@ -22,17 +22,17 @@ ffmpeg -i input.jpeg -pix_fmt bgra -f rawvideo input.bgra
 
 将bgra还原为jpeg (宽高未知？)
 ```bash
-ffmpeg -f rawvideo -pixel_format bgra -video_size 300x168 -i input.bgra output.jpeg  // 这里可行
+ffmpeg -f rawvideo -pixel_format bgra -video_size 1920x1080 -i ../output/output_1080.bgra ../output/output_1080.jpg // 这里可行
 ```
 
 将bgra转换为h264
 ```bash
-ffmpeg -f rawvideo -pix_fmt bgra -s 300x168 -i input.bgra -c:v libx264 output.h264
+ffmpeg -f rawvideo -pix_fmt bgra -s 1920x1080 -i ../input/input_1080.bgra -c:v libx264 ../output/output_1080.h264
 ```
 
 将h264还原为bgra
 ```bash
-ffmpeg -i output.h264 -pix_fmt bgra -f rawvideo output.bgra
+ffmpeg -i ../output/output_1080.h264 -pix_fmt bgra -f rawvideo ../output/output_1080.bgra
 ```
 
 
