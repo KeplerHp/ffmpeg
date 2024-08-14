@@ -31,7 +31,7 @@ int main() {
     // 初始化日志开始时间
     startTime = get_cpu_cycle();
 
-    // 创建AVCodecContext对象
+    // 创建AVCodecContext对象，选择编码器
     NOW(CYCLE_START, 1);
     AVCodec *codec = avcodec_find_encoder(AV_CODEC_ID_H264);
     if (!codec) {
@@ -44,8 +44,10 @@ int main() {
         cerr << "Failed to allocate AVCodecContext object" << endl;
         return -1;
     }
+    NOW(CYCLE_END, 1);
 
     // 设置编码参数
+    NOW(CYCLE_START, 2);
     codec_ctx->bit_rate = 400000;
     codec_ctx->width = width;
     codec_ctx->height = height;
@@ -61,8 +63,10 @@ int main() {
         avcodec_free_context(&codec_ctx);
         return -1;
     }
+    NOW(CYCLE_END, 2);
 
     // 创建AVFrame对象
+    NOW(CYCLE_START, 3);
     AVFrame *frame = av_frame_alloc();
     if (!frame) {
         cerr << "Failed to allocate AVFrame object" << endl;
@@ -80,10 +84,11 @@ int main() {
         avcodec_free_context(&codec_ctx);
         return -1;
     }
+    NOW(CYCLE_END, 3);
 
     // 创建SwsContext对象
+    NOW(CYCLE_START, 4);
     SwsContext *sws_ctx = sws_getContext(width, height, AV_PIX_FMT_BGRA, codec_ctx->width, codec_ctx->height, codec_ctx->pix_fmt, SWS_BILINEAR, nullptr, nullptr, nullptr);
-
     if (!sws_ctx) {
         cerr << "Failed to create SwsContext object" << endl;
         av_freep(&frame->data[0]);
@@ -91,6 +96,7 @@ int main() {
         avcodec_free_context(&codec_ctx);
         return -1;
     }
+    NOW(CYCLE_END, 4);
 
     // 打开输出文件
     FILE *outfile = fopen(output_file.c_str(), "wb");
@@ -104,6 +110,7 @@ int main() {
     }
 
     // 创建AVPacket对象
+    NOW(CYCLE_START, 5);
     AVPacket *pkt = av_packet_alloc();
     if (!pkt) {
         cerr << "Failed to allocate AVPacket object" << endl;
@@ -114,8 +121,10 @@ int main() {
         avcodec_free_context(&codec_ctx);
         return -1;
     }
+    NOW(CYCLE_END, 5);
 
     // 将BGRA数据转换为YUV并编码
+    NOW(CYCLE_START, 6);
     int frame_count = bgra.size() / (width * height * 4); // 每帧BGRA数据大小为 width * height * 4 字节
     for (int i = 0; i < frame_count; ++i) {
         uint8_t *src_slices[1] = {bgra.data() + i * width * height * 4};
@@ -143,24 +152,29 @@ int main() {
             av_packet_unref(pkt);
         }
     }
+    NOW(CYCLE_END, 6);
 
     // 结束编码过程
+    NOW(CYCLE_START, 7);
     avcodec_send_frame(codec_ctx, nullptr);
     while (avcodec_receive_packet(codec_ctx, pkt) >= 0) {
         fwrite(pkt->data, 1, pkt->size, outfile);
         av_packet_unref(pkt);
     }
+    NOW(CYCLE_END, 7);
 
     // 清理资源
+    NOW(CYCLE_START, 8);
     fclose(outfile);
     av_packet_free(&pkt);
     sws_freeContext(sws_ctx);
     av_freep(&frame->data[0]);
     av_frame_free(&frame);
     avcodec_free_context(&codec_ctx);
-    NOW(CYCLE_END, 1);
+    NOW(CYCLE_END, 8);
 
     // 保存日志
-    exportLog();
+    string fileName = "../log/encode_log";
+    exportLog(fileName);
     return 0;
 }

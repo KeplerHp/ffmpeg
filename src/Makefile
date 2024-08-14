@@ -21,5 +21,5 @@ $(DECODE_PROGRAM): $(DECODE_SOURCES) helper.h
 clean:
 	rm -f $(ENCODE_PROGRAM) $(DECODE_PROGRAM)
 	rm -f ../output/*.jpg ../output/*.bgra ../output/*.h264
-	rm -f ../log/log
+	rm -f ../log/*
 .PHONY: all clean

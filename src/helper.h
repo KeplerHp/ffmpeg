@@ -83,10 +83,10 @@ unsigned long long startTime = get_cpu_cycle();
 }
 */
 
-void exportLog() {
+void exportLog(const std::string& logName) {
     std::ofstream ofs;
 
-    ofs.open("../log/log", std::ios::out);
+    ofs.open(logName, std::ios::out);
     ofs.setf(std::ios::fixed);
     ofs.precision(4);
     // ofs << "[" << (startTime)/2900000.f << "]   " << "Start Time" << std::endl;
