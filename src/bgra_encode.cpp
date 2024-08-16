@@ -58,8 +58,7 @@ int main() {
     codec_ctx->pix_fmt = AV_PIX_FMT_YUV420P;
 
     av_opt_set(codec_ctx->priv_data, "preset", "slow", 0);
-    // 这个修改延迟增加很大
-    // av_opt_set(codec_ctx->priv_data, "crf", "0", 0);
+    // 这个修改延迟增加很大,但是还原得到的图片质量没有没有明显提高
     // av_opt_set(codec_ctx->priv_data, "preset", "veryslow", 0);
 
 

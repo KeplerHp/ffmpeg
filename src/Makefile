@@ -20,6 +20,6 @@ $(DECODE_PROGRAM): $(DECODE_SOURCES) helper.h
 
 clean:
 	rm -f $(ENCODE_PROGRAM) $(DECODE_PROGRAM)
-	# rm -f ../output/*.jpg ../output/*.bgra ../output/*.h264
-	# rm -f ../log/1080/* ../log/720/* ../log/480/* ../log/360/*
+	rm -f ../output/*.jpg ../output/*.bgra ../output/*.h264
+	rm -f ../log/1080/* ../log/720/* ../log/480/* ../log/360/*
 .PHONY: all clean
