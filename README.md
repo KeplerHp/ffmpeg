@@ -16,6 +16,12 @@ ffmpeg -f rawvideo -pixel_format bgra -video_size 1920x1080 -i ../output/output_
 
 
 
+
+
+
+
+
+
 调整``bgra_encode.cpp``中的``设置编码参数``部分代码可以调整压缩比例。
 
 
