@@ -13,15 +13,15 @@ ffmpeg -f rawvideo -pixel_format bgra -video_size 1920x1080 -i ../output/output_
 可以将解压缩得到的`bgra`文件还原为`jpg`图片和原始图片对比
 
 `fsnr.py`用于计算`FSNR`，`psnr.py`用于计算`PSNR`，`compare.py`用于比较输入`bgra`和压缩解压缩之后的`bgra`文件
+  
+  
+  
+  
+   
+  
+    
 
-
-
-
-
-
-
-
-
+   
 调整``bgra_encode.cpp``中的``设置编码参数``部分代码可以调整压缩比例。
 
 
