@@ -89,9 +89,12 @@ void exportLog(const std::string& logName) {
     ofs.open(logName, std::ios::out);
     ofs.setf(std::ios::fixed);
     ofs.precision(4);
+
+    unsigned long long prevCycle = startTime; 
     // ofs << "[" << (startTime)/2900000.f << "]   " << "Start Time" << std::endl;
     for (int i = 0; i < log_index; i++) {
-        struct MyTimeLog logItem = logStamps[i];    
+        struct MyTimeLog logItem = logStamps[i];   
+        float timeDiff = (logItem.cycle - prevCycle) / 1000.f;// 计算时间差 
         
         switch (logItem.type)
         {
@@ -134,7 +137,7 @@ void exportLog(const std::string& logName) {
             ofs << "[" << (logItem.cycle-startTime)/1000.f << "]   " << "Primary Device Copy the Image in Swapchin " << logItem.id  << std::endl;
             break;
         case CYCLE_END:
-            ofs << "[" << (logItem.cycle-startTime)/1000.f << "]   " << "CYCLE End " << logItem.id  << std::endl;
+            ofs << "[" << (logItem.cycle-startTime)/1000.f << "]   " << "CYCLE End " << logItem.id  << " (Time since last log: " << timeDiff << " ms)" << std::endl;
             break;
         case SERIALIZE_START:
             ofs << "[" << (logItem.cycle-startTime)/1000.f << "]   " << "SERIALIZE START " << logItem.id  << std::endl;
@@ -160,8 +163,9 @@ void exportLog(const std::string& logName) {
         default:
             break;
         }
+        prevCycle = logItem.cycle;  // 更新上一条日志的时间戳
     }
-    std::cout << "log_index " << log_index << std::endl;
+    // std::cout << "log_index " << log_index << std::endl;
     /*for (int i = 0; i < log_indexT; i++) {
         ofs << "[" << logT[i] << "]"<< std::endl;
     }*/

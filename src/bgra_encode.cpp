@@ -159,7 +159,7 @@ int main() {
     }
     NOW(CYCLE_END, 6);
 
-    // 结束编码过程
+    // 编码过程
     NOW(CYCLE_START, 7);
     avcodec_send_frame(codec_ctx, nullptr);
     while (avcodec_receive_packet(codec_ctx, pkt) >= 0) {
@@ -179,7 +179,7 @@ int main() {
     NOW(CYCLE_END, 8);
 
     // 保存日志
-    string fileName = "../log/encode_log";
+    string fileName = "../log/1080/encode_log";
     exportLog(fileName);
     return 0;
 }

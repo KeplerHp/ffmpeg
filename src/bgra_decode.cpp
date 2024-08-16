@@ -98,7 +98,7 @@ int main() {
         avformat_close_input(&format_ctx);
         return -1;
     }
-    NOW(CYCLE_START, 5);
+    NOW(CYCLE_END, 5);
 
     // 打开输出文件
     NOW(CYCLE_START, 6);
@@ -165,7 +165,7 @@ int main() {
     NOW(CYCLE_END, 10);
 
     // 保存日志
-    string fileName = "../log/decode_log";
+    string fileName = "../log/1080/decode_log";
     exportLog(fileName);
     return 0;
 }
